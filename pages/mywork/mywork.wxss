@@ -1,0 +1,116 @@
+page,.myWork{
+  height: 100%;
+  overflow: hidden;
+}
+.myWork > view{
+  background-color: #fff;
+}
+.workBtn {
+  padding: 26rpx 22rpx;
+  margin-bottom: 22rpx;  
+  display: flex;
+  justify-content: flex-start;
+}
+.workBtn .btn{
+  width: 88px;
+  background-color: #1ecbad;
+  color: #fff;
+  padding: 10px 26px;
+  font-size: 15px;
+  line-height: .8;
+  border-radius: 20px;
+  margin: 0 10rpx 0 0;
+}
+.days-table {
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+._calendar{
+  padding-top: 34rpx;
+}
+.calendar{
+  position: relative;
+  z-index:10000;
+  background: #fff;
+  
+}
+.grid {
+  width: 107.14rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-size:.7rem;
+  color:#2a2a2a;
+}
+.today {
+  color: rgb(236, 82, 82);
+}
+.grid>view {
+  height:95rpx;
+  line-height: 1.6;
+  width:85rpx;
+}
+.choice view{
+  border-radius: 5px;
+  background: rgb(236, 82, 82);
+  background-position:center;
+  color: white;
+}
+/* 非本月日期 */
+.notCurrent {
+  color: silver;
+}
+.day-hover {
+  background: red;
+}
+.swpier-box {
+  height: 630rpx;
+  width: 100%;
+}
+.arrow {
+  width: 100rpx;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+/* 轴向 */
+.column {
+  flex-direction: column;
+}
+/* 主轴方向 */
+.m-start {
+  justify-content: flex-start;
+}
+
+.m-end {
+  justify-content: flex-end;
+}
+
+.m-around {
+  justify-content: space-around;
+}
+.m-between {
+  justify-content: space-between;
+}
+.m-center {
+  justify-content: center;
+}
+/* 侧轴方向 */
+.s-start {
+  align-items: flex-start;
+}
+.s-end {
+  align-items: flex-end;
+}
+
+.s-around {
+  align-items: space-around;
+}
+.s-between {
+  align-items: space-between;
+}
+.s-center {
+  align-items: center;
+}

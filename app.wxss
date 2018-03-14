@@ -1,0 +1,7 @@
+/**app.wxss**/
+@import 'template/userinfo/index.wxss';
+.container {
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+} 

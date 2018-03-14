@@ -1,0 +1,46 @@
+/**index.wxss**/
+.mySubmitWork,.teacherComment{
+  padding-top: 36rpx;
+}
+.title{
+  display: block;
+  font-size: 18px;
+  padding: 0 0 18rpx 24rpx;
+  color: #666;
+}
+.mySubmitWork .workImage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+}
+.mySubmitWork .workImage image{
+  padding: 24rpx 0;
+}
+.mySubmitWork .answer{
+  background-color: #fff;
+  padding: 0 20rpx 16rpx;  
+  font-size: 14px;
+  color: #000;
+  font-weight: 700;
+}
+.commentList{
+  background-color: #fff;
+  padding: 20rpx;
+}
+.commentText{
+  font-weight: 500;
+  font-size: 14px;  
+}
+.commentBrow{
+  width: 120rpx;
+  height: 120rpx;
+}
+.commentTime{
+  font-size: 12px;
+  padding: 10rpx 0;
+  color: #ccc;
+  font-weight:600;
+}

@@ -1,0 +1,14 @@
+{
+  "pages":[
+    "pages/submitwork/submitwork",
+    "pages/mywork/mywork",
+    
+    "pages/detail/detail"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#00bcfe",
+    "navigationBarTitleText": "作业详情",
+    "navigationBarTextStyle":"#fff"
+  }
+}

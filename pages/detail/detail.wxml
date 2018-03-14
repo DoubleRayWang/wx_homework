@@ -1,0 +1,22 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="mySubmitWork">
+    <text class='title'>我提交的作业</text>
+    <view class='workImage'>
+      <image src='{{imageUrl}}' mode='aspectFit'></image>
+    </view>
+    <view class='answer'>
+      {{answer}}
+    </view>
+  </view>
+  <view class="teacherComment">
+    <text class='title'>老师点评</text>
+    <block wx:for="{{comments}}" wx:for-item="item">
+      <view class='commentList'>
+        <image class='commentBrow' src='{{item.img}}' mode='aspectFit' lazy-load="true"></image>
+        <view class='commentText'>{{item.text}}</view>
+        <view class='commentTime'>点评时间：{{item.time}}</view>
+      </view>
+    </block>
+  </view>
+</view>
