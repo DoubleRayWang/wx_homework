@@ -328,7 +328,7 @@ Page({
       let week = weekMap[new Date(year, month - 1, i).getUTCDay()]
       let day = this.formatDay(i)
 
-//此处做判断是否有课程信息需要写入日历
+    //此处做判断是否有课程信息需要写入日历
 
       let msg = '',name=''
       
