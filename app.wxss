@@ -1,7 +1,30 @@
 /**app.wxss**/
-@import 'template/userinfo/index.wxss';
 .container {
   height: 100%;
   box-sizing: border-box;
   background-color: #f7f7f7;
 } 
+.userinfo {
+  display: flex;
+  margin: 22rpx 0;
+  padding: 12rpx 22rpx;
+}
+.userinfoRight{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: 500;
+  color: #000;
+}
+.userinfoAvatar {
+  width: 112rpx;
+  height: 112rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+.userinfoNickname {
+ font-size: 20px;
+}
+.userinfoAccount{
+  font-size: 12px;
+}

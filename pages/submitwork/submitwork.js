@@ -1,13 +1,21 @@
-const app = getApp()
+const app = getApp(),
+    baseUrl = 'https://work.iweigame.com/';
 Page({
     data: {
         userInfo: {},
         userinfoAccount: '',
         hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
-        _select: 1,
         imgList: [],
-        videoSrc: ''
+        videoSrc: '',
+        textContent: '',
+        homework: {
+            session: 'cb87c91e8c194d509fa45eec72dec38d',
+            "type": 1,
+            content: '',
+            images: '',
+            videofile: ''
+        }
     },
     onLoad: function () {
         //如果已经获取账号则直接赋值
@@ -57,33 +65,59 @@ Page({
     },
     typeToggle: function (e) {
         this.setData({
-            _select: e.target.dataset.select
+            homework: {
+                type: Number(e.target.dataset.select)
+            }
         })
     },
-    submitContent: function () {
-        let file = null, that = this,
+    submitContent: function (e) {
+
+        let that = this,
+            text = e.detail.value.content,
             img = that.data.imgList,
             video = that.data.videoSrc;
-        if (video !== '' && img.length > 0) {
-            img.push(video);
-            file = img
-        } else if (video === '' && img.length > 0) {
-            file = img
-        } else if (video !== '' && img.length === 0) {
-            file = [video]
-        } else {
-            wx.showModal({
-                title: '提示',
-                content: '内容为空',
-                showCancel: false
+
+        //文字和图片必须,视频可选
+        if (text === '') {
+            wx.showToast({
+                title: '内容不可为空',
+                image: '/image/submitwork/out_error.svg'
             })
             return;
         }
-        console.log(file)
-        file.map((currentValue, index, arr) => {
-            console.log(currentValue)
-            _upload(that, currentValue, 'fileUpload')
-        })
+        if (img.length === 0) {
+            wx.showToast({
+                title: '未上传图片',
+                image: '/image/submitwork/out_error.svg'
+            })
+            return;
+        }
+
+        that.setData({
+            textContent: text,
+            homework: {
+                content: text
+            }
+        });
+        let task = [];
+        if (video !== '') {
+            _upload(that, video, 'video');
+        }
+
+        img.map((currentValue, index, arr) => {
+            task[index] = _upload(that, currentValue, 'img');
+            task[index].onProgressUpdate((res) => {
+                console.log('上传进度', res.progress)
+                console.log('已经上传的数据长度', res.totalBytesSent)
+                console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+            })
+        });
+        //清空上传的数据
+        // that.setData({
+        //     videoSrc: '',
+        //     imgList: [],
+        //     textContent: ''
+        // })
     },
     chooseWxImage: function (type) {
         let that = this;
@@ -169,48 +203,57 @@ let _upload = (page, path, name) => {
     wx.showToast({
         icon: "loading",
         title: "正在上传"
-    }),
-        wx.uploadFile({
-            url: 'https://work.iweigame.com/videomarket/video/uploadimage',
-            filePath: path,
-            name: name,
-            header: { "Content-Type": "multipart/form-data" },
-            formData: {
-                //和服务器约定的token, 一般也可以放在header中
-                'session_token': wx.getStorageSync('session_token')
-            },
-            success: function (res) {
-                console.log(res);
-                if (res.statusCode != 200) {
-                    wx.showModal({
-                        title: '提示',
-                        content: '上传失败',
-                        showCancel: false
-                    })
-                    return;
-                }
-
-                var data = res.data;
-                wx.showToast({
-                    icon: "success",
-                    title: "上传成功"
-                })
-                //清空上传的数据
-                page.setData({
-                    videoSrc: '',
-                    imgList: []
-                })
-            },
-            fail: function (e) {
-                console.log(e);
+    });
+    let uploadTask = wx.uploadFile({
+        url: baseUrl + 'videomarket/video/uploadimage',
+        filePath: path,
+        name: 'fileUpload',
+        success: function (res) {
+            if (res.statusCode != 200) {
                 wx.showModal({
                     title: '提示',
                     content: '上传失败',
                     showCancel: false
                 })
-            },
-            complete: function () {
-                wx.hideToast();  //隐藏Toast
+                return;
             }
-        })
+            //let data = JSON.parse(res.data);
+            //let _urlData = page.data.homework.images;
+
+            wx.showToast({
+                icon: "success",
+                title: "上传成功"
+            });
+            // if (name === 'img') {
+            //     let images = '';
+            //     if (_urlData !== '') {
+            //         images = `${_urlData},${data.data}`
+            //     } else {
+            //         images = data.data
+            //     }
+            //     page.setData({
+            //         homework: {
+            //             images
+            //         }
+            //     })
+            // } else if (name === 'video') {
+            //     page.setData({
+            //         homework: {
+            //             videofile: data.data
+            //         }
+            //     })
+            // }
+        },
+        fail: function (e) {
+            wx.showModal({
+                title: '提示',
+                content: '上传失败',
+                showCancel: false
+            })
+        },
+        complete: function () {
+            wx.hideToast();  //隐藏Toast
+        }
+    })
+    return uploadTask;
 }

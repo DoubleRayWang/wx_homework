@@ -18,46 +18,47 @@
     </view>
 
     <view class='workType'>
-        <button class='btn {{_select==1?"_selected":""}}' bindtap="typeToggle" data-select="1"> 作业 </button>
-        <button class='btn {{_select==2?"_selected":""}}' bindtap="typeToggle" data-select="2"> 请假 </button>
-        <button class='btn {{_select==3?"_selected":""}}' bindtap="typeToggle" data-select="3"> 其他 </button>
+        <button class='btn {{homework.type===1?"_selected":""}}' bindtap="typeToggle" data-select="1"> 作业 </button>
+        <button class='btn {{homework.type===2?"_selected":""}}' bindtap="typeToggle" data-select="2"> 请假 </button>
+        <button class='btn {{homework.type===3?"_selected":""}}' bindtap="typeToggle" data-select="3"> 其他 </button>
     </view>
 
     <view class='upload'>
-        <textarea placeholder='请填写内容' placeholder-class='uploadPlaceholder' maxlength='-1'></textarea>
+        <form bindsubmit="submitContent">
+            <textarea placeholder='请填写内容' placeholder-class='uploadPlaceholder' maxlength='-1' name='content' value='{{textContent}}'></textarea>
 
-        <view class='videoView'>
-            <block wx:if="{{videoSrc != ''}}">
-                <video src="{{videoSrc}}" id="video"></video>
-                <view class="deleteBtn" catchtap="deleteVideo">
-                    <icon type="clear" size="18" color="red" />
-                </view>
-            </block>
-        </view>
-
-        <view class='imgView'>
-            <block wx:for="{{imgList}}" wx:for-item="item" wx:key="index">
-                <view class='imgList'>
-                    <image src='{{item}}' data-index='{{index}}' mode="aspectFill" bindtap="previewImg"></image>
-                    <view class="deleteBtn" data-index="{{index}}" catchtap="deleteImg">
+            <view class='videoView'>
+                <block wx:if="{{videoSrc != ''}}">
+                    <video src="{{videoSrc}}" id="video"></video>
+                    <view class="deleteBtn" catchtap="deleteVideo">
                         <icon type="clear" size="18" color="red" />
                     </view>
-                </view>
-            </block>
-        </view>
-
-        <view class='mediaChoose'>
-            <view class='openPhoto' bindtap="chooseWxImage">
-                <image src='/image/submitwork/photo.svg'></image>
+                </block>
             </view>
-            <block wx:if="{{videoSrc === ''}}">
-                <view class='openVideo' bindtap="chooseWxVideo">
-                    <image src='/image/submitwork/video.svg'></image>
+
+            <view class='imgView'>
+                <block wx:for="{{imgList}}" wx:for-item="item" wx:key="index">
+                    <view class='imgList'>
+                        <image src='{{item}}' data-index='{{index}}' mode="aspectFill" bindtap="previewImg"></image>
+                        <view class="deleteBtn" data-index="{{index}}" catchtap="deleteImg">
+                            <icon type="clear" size="18" color="red" />
+                        </view>
+                    </view>
+                </block>
+            </view>
+
+            <view class='mediaChoose'>
+                <view class='openPhoto' bindtap="chooseWxImage">
+                    <image src='/image/submitwork/photo.svg'></image>
                 </view>
-            </block>
-        </view>
+                <block wx:if="{{videoSrc === ''}}">
+                    <view class='openVideo' bindtap="chooseWxVideo">
+                        <image src='/image/submitwork/video.svg'></image>
+                    </view>
+                </block>
+            </view>
 
+            <button class='submitContent' form-type='submit'> 提交 </button>
+        </form>
     </view>
-
-    <button class='submitContent' bindtap="submitContent"> 提交 </button>
 </view>
