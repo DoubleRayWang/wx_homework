@@ -397,7 +397,7 @@ Page({
   },
   publicWork: function () {
     wx.navigateTo({
-      url: '../submitwork/submitwork'
+        url: '../submitwork/submitwork?addtime=' + this.data.beSelectDate
     })
   },
 })

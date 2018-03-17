@@ -31,5 +31,6 @@ App({
   globalData: {
     userInfo: null,
     userinfoAccount: '18888888888',
+    session: 'cb87c91e8c194d509fa45eec72dec38d',
   }
 })

@@ -18,9 +18,9 @@
     </view>
 
     <view class='workType'>
-        <button class='btn {{homework.type===1?"_selected":""}}' bindtap="typeToggle" data-select="1"> 作业 </button>
-        <button class='btn {{homework.type===2?"_selected":""}}' bindtap="typeToggle" data-select="2"> 请假 </button>
-        <button class='btn {{homework.type===3?"_selected":""}}' bindtap="typeToggle" data-select="3"> 其他 </button>
+        <button class='btn {{wtype===1?"_selected":""}}' bindtap="typeToggle" data-select="1"> 作业 </button>
+        <button class='btn {{wtype===2?"_selected":""}}' bindtap="typeToggle" data-select="2"> 请假 </button>
+        <button class='btn {{wtype===3?"_selected":""}}' bindtap="typeToggle" data-select="3"> 其他 </button>
     </view>
 
     <view class='upload'>

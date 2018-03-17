@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/submitwork/submitwork",
         "pages/index/index",
+        "pages/submitwork/submitwork",
         "pages/detail/detail"
     ],
     "window": {

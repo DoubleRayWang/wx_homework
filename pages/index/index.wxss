@@ -15,10 +15,10 @@ page, .myWork {
 }
 
 .workBtn .btn {
-    width: 88px;
+    width: 100px;
     background-color: #1ecbad;
     color: #fff;
-    padding: 10px 26px;
+    padding: 10px 24px;
     font-size: 15px;
     line-height: 0.8;
     border-radius: 20px;

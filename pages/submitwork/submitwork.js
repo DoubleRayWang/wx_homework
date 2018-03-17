@@ -9,15 +9,18 @@ Page({
         imgList: [],
         videoSrc: '',
         textContent: '',
-        homework: {
-            session: 'cb87c91e8c194d509fa45eec72dec38d',
-            "type": 1,
-            content: '',
-            images: '',
-            videofile: ''
-        }
+        session: app.globalData.session,
+        wtype: 1,
+        content: '',
+        images: '',
+        videofile: '',
+        addtime: ''
     },
-    onLoad: function () {
+    onLoad: function (option) {
+        //记录交作业的日期
+        this.setData({
+            addtime: option.addtime
+        })
         //如果已经获取账号则直接赋值
         if (app.globalData.userinfoAccount) {
             this.setData({
@@ -65,17 +68,14 @@ Page({
     },
     typeToggle: function (e) {
         this.setData({
-            homework: {
-                type: Number(e.target.dataset.select)
-            }
+            wtype: Number(e.target.dataset.select)
         })
     },
     submitContent: function (e) {
-
         let that = this,
             text = e.detail.value.content,
             img = that.data.imgList,
-            video = that.data.videoSrc;
+            imgLength = img.length;
 
         //文字和图片必须,视频可选
         if (text === '') {
@@ -85,7 +85,7 @@ Page({
             })
             return;
         }
-        if (img.length === 0) {
+        if (imgLength === 0) {
             wx.showToast({
                 title: '未上传图片',
                 image: '/image/submitwork/out_error.svg'
@@ -95,29 +95,116 @@ Page({
 
         that.setData({
             textContent: text,
-            homework: {
-                content: text
-            }
+            content: text
         });
-        let task = [];
-        if (video !== '') {
-            _upload(that, video, 'video');
-        }
-
-        img.map((currentValue, index, arr) => {
-            task[index] = _upload(that, currentValue, 'img');
-            task[index].onProgressUpdate((res) => {
-                console.log('上传进度', res.progress)
-                console.log('已经上传的数据长度', res.totalBytesSent)
-                console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+        let video = that.data.videoSrc,
+            i = 0;
+        //递归判断每一个图片都上传完成
+        let uploadBack = (path, name) => {
+            console.log('开始上传：' + path);
+            wx.uploadFile({
+                url: baseUrl + 'videomarket/video/uploadimage',
+                filePath: path,
+                name: 'fileUpload',
+                success: function (res) {
+                    if (res.statusCode != 200) {
+                        wx.hideLoading();
+                        wx.showModal({
+                            title: '提示',
+                            content: '上传失败',
+                            showCancel: false
+                        })
+                        return;
+                    }
+                    let data = JSON.parse(res.data);
+                    let _urlData = that.data.images;
+                    if (name === 'img') {
+                        let images = '';
+                        if (_urlData !== '') {
+                            images = `${_urlData},${data.data}`
+                        } else {
+                            images = data.data
+                        }
+                        that.setData({
+                            images
+                        })
+                        i += 1;
+                    } else if (name === 'video') {
+                        that.setData({
+                            videofile: data.data
+                        })
+                    }
+                    _upload(i);
+                },
+                fail: function (e) {
+                    wx.hideLoading();
+                    wx.showModal({
+                        title: '提示',
+                        content: '上传失败',
+                        showCancel: false
+                    })
+                }
             })
+        };
+        let _upload = (i) => {
+            if (i <= imgLength - 1) {
+                uploadBack(img[i], 'img');
+            } else {
+                console.log({
+                    session: app.globalData.session,
+                    type: that.data.wtype,
+                    content: that.data.content,
+                    images: that.data.images,
+                    videofile: that.data.videofile
+                })
+                //图片和视频上传完成后再提交一次request
+                wx.request({
+                    url: baseUrl + 'buyiban/homework/addhomework', //仅为示例，并非真实的接口地址
+                    data: {
+                        session: app.globalData.session,
+                        type: that.data.wtype,
+                        content: that.data.content,
+                        images: that.data.images,
+                        videofile: that.data.videofile,
+                        addtime: that.data.addtime
+                    },
+                    success: function (res) {
+                        console.log(res.data);
+                        //if (code == 200) {
+                        wx.showToast({
+                            icon: "success",
+                            title: "上传成功"
+                        });
+                        //}
+
+                        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+                        //所有数据处理完成后 do something
+                        //是否清空已上传的数据
+                    },
+                    fail: function () {
+                        wx.showModal({
+                            title: '提示',
+                            content: '上传失败',
+                            showCancel: false
+                        })
+                    },
+                    complete: function () {
+                        wx.hideLoading();
+                    }
+                })
+            }
+        };
+        //有视频则先传视频（uploadBack中会继续调用图片上传）
+        if (video !== '') {
+            uploadBack(video, 'video')
+        } else {
+            _upload(i)
+        }
+        wx.showLoading({
+            title: "正在上传",
+            mask: true
         });
-        //清空上传的数据
-        // that.setData({
-        //     videoSrc: '',
-        //     imgList: [],
-        //     textContent: ''
-        // })
     },
     chooseWxImage: function (type) {
         let that = this;
@@ -198,62 +285,3 @@ Page({
         })
     }
 });
-
-let _upload = (page, path, name) => {
-    wx.showToast({
-        icon: "loading",
-        title: "正在上传"
-    });
-    let uploadTask = wx.uploadFile({
-        url: baseUrl + 'videomarket/video/uploadimage',
-        filePath: path,
-        name: 'fileUpload',
-        success: function (res) {
-            if (res.statusCode != 200) {
-                wx.showModal({
-                    title: '提示',
-                    content: '上传失败',
-                    showCancel: false
-                })
-                return;
-            }
-            //let data = JSON.parse(res.data);
-            //let _urlData = page.data.homework.images;
-
-            wx.showToast({
-                icon: "success",
-                title: "上传成功"
-            });
-            // if (name === 'img') {
-            //     let images = '';
-            //     if (_urlData !== '') {
-            //         images = `${_urlData},${data.data}`
-            //     } else {
-            //         images = data.data
-            //     }
-            //     page.setData({
-            //         homework: {
-            //             images
-            //         }
-            //     })
-            // } else if (name === 'video') {
-            //     page.setData({
-            //         homework: {
-            //             videofile: data.data
-            //         }
-            //     })
-            // }
-        },
-        fail: function (e) {
-            wx.showModal({
-                title: '提示',
-                content: '上传失败',
-                showCancel: false
-            })
-        },
-        complete: function () {
-            wx.hideToast();  //隐藏Toast
-        }
-    })
-    return uploadTask;
-}
