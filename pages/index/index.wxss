@@ -25,6 +25,11 @@ page, .myWork {
     margin: 0 10rpx 0 0;
 }
 
+.workBtn .btn[disabled]:not([type]){
+    background-color: #1ecbad;
+    color: #fff;
+    opacity: .5
+}
 .days-table {
     flex-wrap: wrap;
     align-content: flex-start;

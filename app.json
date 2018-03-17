@@ -1,8 +1,8 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/submitwork/submitwork",
-        "pages/detail/detail"
+        "pages/detail/detail",
+        "pages/submitwork/submitwork"
     ],
     "window": {
         "backgroundTextStyle": "light",

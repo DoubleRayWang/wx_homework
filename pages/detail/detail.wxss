@@ -1,46 +1,69 @@
-/**index.wxss**/
-.mySubmitWork,.teacherComment{
-  padding-top: 36rpx;
+.mySubmitWork, .teacherComment {
+    padding-top: 36rpx;
 }
-.title{
-  display: block;
-  font-size: 18px;
-  padding: 0 0 18rpx 24rpx;
-  color: #666;
+
+.title {
+    display: block;
+    font-size: 18px;
+    padding: 0 0 18rpx 24rpx;
+    color: #666;
 }
-.mySubmitWork .workImage{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: auto;
-  background-color: #fff;
+
+.workImage {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 10rpx 0 20rpx 3px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }
-.mySubmitWork .workImage image{
-  padding: 24rpx 0;
+.workImage .imageList{
+    padding: 4rpx;
+    width: 32%; 
+    height: 220rpx;
 }
-.mySubmitWork .answer{
-  background-color: #fff;
-  padding: 0 20rpx 16rpx;  
-  font-size: 14px;
-  color: #000;
-  font-weight: 700;
+.imageList image{
+    width: 100%;
+    height: 100%;
+} 
+.workImage .imageListOne{
+    display: flex;
+    justify-content: center;
+    padding: 4rpx;
+    width: 100%; 
+    height: auto;
 }
-.commentList{
-  background-color: #fff;
-  padding: 20rpx;
+
+.workVideo video {
+    width: 100%;
 }
-.commentText{
-  font-weight: 500;
-  font-size: 14px;  
+
+.mySubmitWork .answer {
+    background-color: #fff;
+    padding: 30rpx 20rpx;
+    font-size: 14px;
+    color: #000;
+    font-weight: 700;
 }
-.commentBrow{
-  width: 120rpx;
-  height: 120rpx;
+
+.commentContent {
+    background-color: #fff;
+    padding: 50rpx;
 }
-.commentTime{
+
+.commentText {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.commentBrow {
+    width: 120rpx;
+    height: 120rpx;
+}
+
+/* .commentTime{
   font-size: 12px;
   padding: 10rpx 0;
   color: #ccc;
   font-weight:600;
-}
+} */

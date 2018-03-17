@@ -14,12 +14,15 @@ Page({
         content: '',
         images: '',
         videofile: '',
-        addtime: ''
+        addtime: '',
+        tagid: ''
     },
     onLoad: function (option) {
+        console.log(option);
         //记录交作业的日期
         this.setData({
-            addtime: option.addtime
+            addtime: option.addtime,
+            tagid: option.tagid
         })
         //如果已经获取账号则直接赋值
         if (app.globalData.userinfoAccount) {
@@ -159,14 +162,15 @@ Page({
                 })
                 //图片和视频上传完成后再提交一次request
                 wx.request({
-                    url: baseUrl + 'buyiban/homework/addhomework', //仅为示例，并非真实的接口地址
+                    url: baseUrl + 'buyiban/homework/addhomework',
                     data: {
                         session: app.globalData.session,
                         type: that.data.wtype,
                         content: that.data.content,
                         images: that.data.images,
                         videofile: that.data.videofile,
-                        addtime: that.data.addtime
+                        addtime: that.data.addtime,
+                        tagid: that.data.tagid
                     },
                     success: function (res) {
                         console.log(res.data);

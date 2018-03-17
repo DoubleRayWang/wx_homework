@@ -1,22 +1,26 @@
-<!--index.wxml-->
 <view class="container">
-  <view class="mySubmitWork">
-    <text class='title'>我提交的作业</text>
-    <view class='workImage'>
-      <image src='{{imageUrl}}' mode='aspectFit'></image>
+    <view class="mySubmitWork">
+        <text class='title'>我提交的作业</text>
+        <view wx:if="{{hasVideo}}" class='workVideo'>
+            <video src='{{videofile}}'></video>
+        </view>
+        <view class='workImage'>
+            <block wx:for="{{images}}" wx:key="ind" wx:for-item="one">
+                <view class='{{imagesLt1?"imageList":"imageListOne"}}'>
+                    <image src='{{one}}' data-index='{{ind}}' mode="aspectFit" bindtap="previewImage"></image>
+                </view>
+            </block>
+        </view>
+        <view class='answer'>
+            {{content}}
+        </view>
     </view>
-    <view class='answer'>
-      {{answer}}
+    <view wx:if="{{iscomment==='0'?false:true}}" class="teacherComment">
+        <text class='title'>老师点评</text>
+        <view class='commentContent'>
+            <image class='commentBrow' src='{{commentimage}}' mode='aspectFit' lazy-load="true"></image>
+            <view class='commentText'>{{comment}}</view>
+            <!-- <view class='commentTime'>点评时间：{{}}</view> -->
+        </view>
     </view>
-  </view>
-  <view class="teacherComment">
-    <text class='title'>老师点评</text>
-    <block wx:for="{{comments}}" wx:for-item="item">
-      <view class='commentList'>
-        <image class='commentBrow' src='{{item.img}}' mode='aspectFit' lazy-load="true"></image>
-        <view class='commentText'>{{item.text}}</view>
-        <view class='commentTime'>点评时间：{{item.time}}</view>
-      </view>
-    </block>
-  </view>
 </view>
