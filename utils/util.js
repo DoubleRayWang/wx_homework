@@ -17,25 +17,3 @@ const formatNumber = n => {
 module.exports = {
   formatTime: formatTime
 }
-
-wx.uploadFile({
-    url: uploadFileUrl,
-    filePath: imageSrc,
-    name: 'data',
-    success: function (res) {
-        console.log('uploadImage success, res is:', res)
-
-        wx.showToast({
-            title: '上传成功',
-            icon: 'success',
-            duration: 1000
-        })
-
-        self.setData({
-            imageSrc
-        })
-    },
-    fail: function ({ errMsg }) {
-        console.log('uploadImage fail, errMsg is', errMsg)
-    }
-})

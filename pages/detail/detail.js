@@ -3,7 +3,7 @@ const app = getApp()
 Page({
     data: {
         homeworkid: '',
-        iscomment: '',
+        iscomment: '0',
         comment: '',
         commentimage: '',
         content: '',
@@ -14,10 +14,15 @@ Page({
         imagesLt1: true
     },
     onLoad: function (option) {
+        let homeworkid = option.homeworkid,
+            iscomment = option.iscomment;
+        if (!iscomment) {
+            iscomment = '0'
+        }
         this.setData({
-            homeworkid: option.homeworkid,
-            iscomment: option.iscomment
-        })
+            homeworkid,
+            iscomment
+        });
         wx.showLoading({
             title: "获取中...",
             mask: true
@@ -42,7 +47,7 @@ Page({
                     hasVideo,
                     imagesLt1;
                 let images = data.images.split(',');
-;
+                ;
                 !data.videofile ? hasVideo = false : hasVideo = true;
                 images.length > 1 ? imagesLt1 = true : imagesLt1 = false;
                 that.setData({

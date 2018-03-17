@@ -30,34 +30,6 @@ Page({
         canIUse: wx.canIUse('button.open-type.getUserInfo')
     },
     onLoad: function () {
-        const date = new Date()
-            , month = this.formatMonth(date.getMonth() + 1)
-            , year = date.getFullYear()
-            , day = this.formatDay(date.getDate())
-            , today = `${year}-${month}-${day}`
-        let calendar = null,
-            that = this,
-            time = this.countMonth(year, month);
-
-        //console.log(time)
-        let starttime = `${time.lastMonth.year}-${time.lastMonth.month}-01`,
-            endtime = `${time.nextMonth.year}-${time.nextMonth.month}-${time.nextMonth.num}`
-        this.getWork(starttime, endtime, function () {
-
-            calendar = that.generateThreeMonths(year, month)
-            that.setData({
-                calendar,
-                month,
-                year,
-                day,
-                today,
-                beSelectDate: today,
-                date: `${year}-${month}`
-            })
-        })
-
-
-
         //如果已经获取账号则直接赋值
         if (app.globalData.userinfoAccount) {
             this.setData({
@@ -96,6 +68,33 @@ Page({
             })
         }
     },
+    onShow: function(){
+        const date = new Date()
+            , month = this.formatMonth(date.getMonth() + 1)
+            , year = date.getFullYear()
+            , day = this.formatDay(date.getDate())
+            , today = `${year}-${month}-${day}`
+        let calendar = null,
+            that = this,
+            time = this.countMonth(year, month);
+
+        //console.log(time)
+        let starttime = `${time.lastMonth.year}-${time.lastMonth.month}-01`,
+            endtime = `${time.nextMonth.year}-${time.nextMonth.month}-${time.nextMonth.num}`
+        this.getWork(starttime, endtime, function () {
+            calendar = that.generateThreeMonths(year, month)
+            that.setData({
+                calendar,
+                month,
+                year,
+                day,
+                today,
+                beSelectDate: today,
+                date: `${year}-${month}`
+            });
+            
+        })
+    },
     //获取课程
     getWork: function (start, end, callback) {
         //如果正在获取
@@ -123,7 +122,11 @@ Page({
                     })
                     return;
                 }
+            
                 let classinfo = res.data.data;
+                // classinfo.push({
+                //     "homeworkid": "0", "tagname": "数学班", "tagid": 3, "tagdata": "2018-03-15", "iscomment": 0
+                // })
                 //console.log(classinfo);
                 that.setData({
                     classinfo
@@ -138,6 +141,7 @@ Page({
                 })
             },
             complete: function () {
+                wx.hideLoading();
                 //改变获取状态
                 that.setData({
                     isGetVlassinfo: false

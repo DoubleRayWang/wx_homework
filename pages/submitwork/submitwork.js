@@ -18,7 +18,6 @@ Page({
         tagid: ''
     },
     onLoad: function (option) {
-        console.log(option);
         //记录交作业的日期
         this.setData({
             addtime: option.addtime,
@@ -104,7 +103,7 @@ Page({
             i = 0;
         //递归判断每一个图片都上传完成
         let uploadBack = (path, name) => {
-            console.log('开始上传：' + path);
+            //console.log('开始上传文件：' + path);
             wx.uploadFile({
                 url: baseUrl + 'videomarket/video/uploadimage',
                 filePath: path,
@@ -119,7 +118,7 @@ Page({
                         })
                         return;
                     }
-                    let data = JSON.parse(res.data);
+                    let data = res.data;
                     let _urlData = that.data.images;
                     if (name === 'img') {
                         let images = '';
@@ -137,6 +136,7 @@ Page({
                             videofile: data.data
                         })
                     }
+                    i += 1;
                     _upload(i);
                 },
                 fail: function (e) {
@@ -174,17 +174,24 @@ Page({
                     },
                     success: function (res) {
                         console.log(res.data);
-                        //if (code == 200) {
+                        if (res.data.code != 200) {
+                            wx.showModal({
+                                title: '提示',
+                                content: '上传失败',
+                                showCancel: false
+                            })
+                            return;
+                        }
                         wx.showToast({
                             icon: "success",
-                            title: "上传成功"
+                            title: "上传成功",
+                            success: function (){
+                                //所有数据处理完成后 
+                                wx.reLaunch({
+                                    url: `../detail/detail?homeworkid=${res.data.data}`
+                                })
+                            }
                         });
-                        //}
-
-                        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-
-                        //所有数据处理完成后 do something
-                        //是否清空已上传的数据
                     },
                     fail: function () {
                         wx.showModal({
@@ -199,16 +206,17 @@ Page({
                 })
             }
         };
+        wx.showLoading({
+            title: "正在上传",
+            mask: true
+        });
         //有视频则先传视频（uploadBack中会继续调用图片上传）
         if (video !== '') {
             uploadBack(video, 'video')
         } else {
             _upload(i)
         }
-        wx.showLoading({
-            title: "正在上传",
-            mask: true
-        });
+        
     },
     chooseWxImage: function (type) {
         let that = this;
