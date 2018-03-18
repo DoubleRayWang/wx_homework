@@ -1,12 +1,15 @@
 .personal {
-    background-color: #fff;
+    background-color: #fafafa;
     height: 100vh;
     overflow: hidden;
 }
-
+.userinfo{
+    background-color: #fff;
+    margin-top: 0;
+}
 .userinfoAvatar {
-    width: 180rpx;
-    height: 180rpx;
+    width: 160rpx;
+    height: 160rpx;
     border: 1px solid #dfdfdf;
 }
 
@@ -23,23 +26,25 @@
     flex-direction: row;
     width: 100vw;
     height: 26vw;
+    background-color: #fff;
 }
 
 .itemList {
+    position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 33%;
-    border: 0 solid #ddd;
+    
 }
 
-.itemList:nth-of-type(odd) {
+ /* .itemList:nth-of-type(odd) {
     border-width: 1px 0;
 }
 
 .itemList:nth-of-type(even) {
     border-width: 1px;
-}
+}  */
 
 .itemList image {
     width: 40%;
