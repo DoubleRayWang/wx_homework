@@ -136,7 +136,6 @@ Page({
                             videofile: data.data
                         })
                     }
-                    i += 1;
                     _upload(i);
                 },
                 fail: function (e) {

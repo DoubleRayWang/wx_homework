@@ -68,7 +68,7 @@ Page({
             })
         }
     },
-    onShow: function(){
+    onShow: function () {
         const date = new Date()
             , month = this.formatMonth(date.getMonth() + 1)
             , year = date.getFullYear()
@@ -92,7 +92,7 @@ Page({
                 beSelectDate: today,
                 date: `${year}-${month}`
             });
-            
+
         })
     },
     //获取课程
@@ -122,7 +122,7 @@ Page({
                     })
                     return;
                 }
-            
+
                 let classinfo = res.data.data;
                 // classinfo.push({
                 //     "homeworkid": "0", "tagname": "数学班", "tagid": 3, "tagdata": "2018-03-15", "iscomment": 0
@@ -255,11 +255,11 @@ Page({
 
         //有课程也有作业则看详情
         if (tagid !== '') {
-            if (homeworkid === '0') {
+            if (homeworkid === '0' || homeworkid === null) {
                 this.setData({
                     isPublic: true
                 })
-            }else {
+            } else {
                 wx.navigateTo({
                     url: `../detail/detail?homeworkid=${homeworkid}&iscomment=${iscomment}`
                 })
@@ -483,7 +483,7 @@ Page({
         })
     },
     getUserInfo: function (e) {//按钮获取用户信息
-        console.log(e)
+        //console.log(e)
         app.globalData.userInfo = e.detail.userInfo
         this.setData({
             userInfo: e.detail.userInfo,

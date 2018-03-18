@@ -1,10 +1,10 @@
 //app.js
 App({
     onLaunch: function () {
-        wx.showLoading({
-            title: "正在获取课程",
-            mask: true
-        });
+        // wx.showLoading({
+        //     title: "正在获取课程",
+        //     mask: true
+        // });
         // 登录
         wx.login({
             success: res => {

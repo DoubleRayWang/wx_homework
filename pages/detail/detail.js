@@ -47,7 +47,7 @@ Page({
                     hasVideo,
                     imagesLt1;
                 let images = data.images.split(',');
-                ;
+                
                 !data.videofile ? hasVideo = false : hasVideo = true;
                 images.length > 1 ? imagesLt1 = true : imagesLt1 = false;
                 that.setData({
