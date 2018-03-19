@@ -1,9 +1,8 @@
 {
     "pages": [
-        "pages/detail/detail",
-        "pages/user/user",
         "pages/index/index",
-        
+        "pages/detail/detail",
+        "pages/user/user",        
         "pages/submitwork/submitwork"
     ],
     "window": {

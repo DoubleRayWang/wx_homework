@@ -1,3 +1,4 @@
+<!--logs.wxml-->
 <view class="container submitWork">
 
     <view class='userinfo'>
@@ -25,22 +26,20 @@
     <view class='upload'>
         <form bindsubmit="submitContent">
             <textarea placeholder='请填写内容' placeholder-class='uploadPlaceholder' maxlength='-1' name='content' value='{{textContent}}'></textarea>
-
-            <view class='videoView'>
-                <block wx:if="{{videoSrc != ''}}">
+            <block wx:if="{{videoSrc != ''}}">
+                <view class='videoView'>
                     <video src="{{videoSrc}}" id="video"></video>
                     <view class="deleteBtn" catchtap="deleteVideo">
-                        <icon type="clear" size="18" color="red" />
+                        <image src='/image/submitwork/delete_red.svg' mode='aspectFit'></image>
                     </view>
-                </block>
-            </view>
-
+                </view>
+            </block>
             <view class='imgView'>
                 <block wx:for="{{imgList}}" wx:for-item="item" wx:key="index">
                     <view class='imgList'>
-                        <image src='{{item}}' data-index='{{index}}' mode="aspectFill" bindtap="previewImg"></image>
+                        <image src='{{item}}' data-index='{{index}}' mode="aspectFill" bindtap="previewImg" class='imgItem'></image>
                         <view class="deleteBtn" data-index="{{index}}" catchtap="deleteImg">
-                            <icon type="clear" size="18" color="red" />
+                            <image src='/image/submitwork/delete.svg' mode='aspectFit'></image>
                         </view>
                     </view>
                 </block>

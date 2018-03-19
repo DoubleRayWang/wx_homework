@@ -8,6 +8,8 @@ Page({
         month: '',
         date: '2017-01',
         today: '',
+        lt:'<',
+        gt:'>',
         week: ['日', '一', '二', '三', '四', '五', '六'],
         calendar: {
             first: [],
@@ -92,7 +94,7 @@ Page({
                 beSelectDate: today,
                 date: `${year}-${month}`
             });
-
+            
         })
     },
     //获取课程
@@ -264,6 +266,10 @@ Page({
                     url: `../detail/detail?homeworkid=${homeworkid}&iscomment=${iscomment}`
                 })
             }
+        }else if (tagid === '' || homeworkid !== '0' || homeworkid !== null){
+            this.setData({
+                isPublic: false
+            })
         }
 
     },

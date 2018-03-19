@@ -6,6 +6,7 @@
 .userinfo{
     background-color: #fff;
     margin-top: 0;
+    border-bottom: 1px solid #ddd;
 }
 .userinfoAvatar {
     width: 160rpx;

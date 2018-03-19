@@ -2,6 +2,10 @@
     padding-top: 30rpx;
 }
 
+.container{
+    display: block;
+}
+
 .title {
     display: flex;
     flex-direction: row;

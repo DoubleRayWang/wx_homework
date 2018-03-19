@@ -152,13 +152,13 @@ Page({
             if (i <= imgLength - 1) {
                 uploadBack(img[i], 'img');
             } else {
-                console.log({
-                    session: app.globalData.session,
-                    type: that.data.wtype,
-                    content: that.data.content,
-                    images: that.data.images,
-                    videofile: that.data.videofile
-                })
+                // console.log({
+                //     session: app.globalData.session,
+                //     type: that.data.wtype,
+                //     content: that.data.content,
+                //     images: that.data.images,
+                //     videofile: that.data.videofile
+                // })
                 //图片和视频上传完成后再提交一次request
                 wx.request({
                     url: baseUrl + 'buyiban/homework/addhomework',

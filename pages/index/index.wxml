@@ -15,7 +15,7 @@
 
   <view class='_calendar'>
     <view class='month flex m-around'>
-    <view class='arrow' bindtap='prevMonth'>《 </view>
+    <view class='arrow' bindtap='prevMonth'> {{lt}} </view>
     <view>
         <picker mode="date" value="{{date}}" start="2015-09" end="2020-09" fields='month' bindchange="bindDateChange">
         <view>
@@ -23,7 +23,7 @@
         </view>
         </picker>
     </view>
-    <view class='arrow' bindtap='nextMonth'> 》</view>
+    <view class='arrow' bindtap='nextMonth'> {{gt}} </view>
 </view>
 <view class='calendar flex column s-center'>
   <view class='week-row flex m-around'>

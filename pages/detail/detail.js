@@ -20,8 +20,8 @@ Page({
             iscomment = '0'
         }
         this.setData({
-            homeworkid:'1',
-            iscomment:'1'
+            homeworkid,
+            iscomment
         });
         wx.showLoading({
             title: "获取中...",
