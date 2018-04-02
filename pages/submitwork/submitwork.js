@@ -78,7 +78,8 @@ Page({
             text = e.detail.value.content,
             img = that.data.imgList,
             imgLength = img.length;
-
+        let video = that.data.videoSrc,
+            i = 0;
         //文字和图片必须,视频可选
         if (text === '') {
             wx.showToast({
@@ -87,9 +88,9 @@ Page({
             })
             return;
         }
-        if (imgLength === 0) {
+        if (imgLength === 0 && video === '') {
             wx.showToast({
-                title: '未上传图片',
+                title: '请上传图片或视频',
                 image: '/image/submitwork/out_error.svg'
             })
             return;
@@ -99,8 +100,7 @@ Page({
             textContent: text,
             content: text
         });
-        let video = that.data.videoSrc,
-            i = 0;
+
         //递归判断每一个图片都上传完成
         let uploadBack = (path, name) => {
             //console.log('开始上传文件：' + path);
@@ -184,7 +184,7 @@ Page({
                         wx.showToast({
                             icon: "success",
                             title: "上传成功",
-                            success: function (){
+                            success: function () {
                                 //所有数据处理完成后 
                                 wx.reLaunch({
                                     url: `../detail/detail?homeworkid=${res.data.data}`
@@ -215,7 +215,7 @@ Page({
         } else {
             _upload(i)
         }
-        
+
     },
     chooseWxImage: function (type) {
         let that = this;
